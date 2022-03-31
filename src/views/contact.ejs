@@ -1,0 +1,46 @@
+<%- include("includes/head.ejs") %>
+<%- include("includes/nav.ejs") %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8 my-3">
+      <h1 class="text-center">Contact</h1>
+      <p class="text-center lead">Manage or create an contact</p>
+
+      <%- include("includes/alerts.ejs") %>
+      <% if (!contact._id) { %>
+      <form action="/contact/register" method="post">
+      <% } else {%>
+      <form action="/contact/edit/<%= contact._id %>" method="post">
+      <% } %>
+        <input type="hidden" name="_csrf" value=<%= csrfToken %>>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Name</label>
+            <input value="<%= contact.name %>" name="name" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Last Name</label>
+            <input value="<%= contact.lastName %>" name="lastName" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Telephone</label>
+            <input value="<%= contact.telephone %>" name="telephone" type="tel" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email Address</label>
+          <input value="<%= contact.email %>" name="email" type="email" class="form-control">
+        </div>
+      <% if (!contact._id) { %>
+        <input type="hidden" name="_ownerID" value="<%= user._id %>">
+        <button type="submit" class="btn btn-primary">Create Contact</button>
+      <% } else { %>
+        <button type="button" class="btn btn-primary"><a class="text-white text-decoration-none" href="/contact">Create Another</a></button>
+        <button type="submit" class="btn btn-primary">Edit</button>
+        <button type="button" class="btn btn-danger"><a class="text-white text-decoration-none" href="/contact/delete/<%= contact._id %>">Delete</a></button>
+      <% } %>
+      </form>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+</div>
+<%- include("includes/footer.ejs") %>

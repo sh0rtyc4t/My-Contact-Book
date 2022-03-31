@@ -1,0 +1,32 @@
+<%- include("includes/head.ejs") %>
+<%- include("includes/nav.ejs") %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8 my-3">
+      <h1 class="text-center">My Contact Book</h1>
+      <p class="text-center lead">Your contact list:</p>
+      <%- include("includes/alerts.ejs") %>
+      <% if (contactList?.length > 0) { %>
+      <div class="responsive-table my-3">
+        <table class="table">
+          <% for (const c of contactList) { %>
+          <tr>
+            <td><%= c.name %></td>
+            <td><%= c.lastName %></td>
+            <td><%= c.telephone %></td>
+            <td><%= c.email %></td>
+            <td><a class="text-decoration-none" href="/contact/<%= c._id %>">Edit</a></td>
+            <td><a class="text-danger text-decoration-none" href="/contact/delete/<%= c._id %>">Delete</a></td>
+          </tr>
+          <% } %>
+        </table>
+      </div>
+      <% } else { %>
+        <p class="textcenter lead">Has no contacts in your contact book</p>
+      <% } %>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+</div>
+<%- include("includes/footer.ejs") %>
